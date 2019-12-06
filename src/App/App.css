@@ -1,0 +1,7 @@
+.second {
+  margin: 0;
+}
+
+[class*='col-md-'] {
+  padding: 0;
+}
