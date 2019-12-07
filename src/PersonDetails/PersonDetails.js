@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './PersonDetails';
 class PersonDetails extends Component {
-  state = {  }
   render() { 
     return (
 			<div className="person-details card">

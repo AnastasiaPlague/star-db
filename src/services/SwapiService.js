@@ -41,7 +41,7 @@ export default class SwapiService {
 
 	_extractId(item) {
 		const idRegex = /\/([0-9])*\/$/;
-		const id = item.url.match(idRegex)[1]; // [] mark a group in a regex which we put in () before
+		return item.url.match(idRegex)[1]; // [] mark a group in a regex which we put in () before
 	}
 	_transformPlanet(planet) {
 		return {
