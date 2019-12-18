@@ -16,6 +16,9 @@ class RandomPlanet extends Component {
 	componentDidMount() {
 		this.updatePlanet();
 		this.interval = setInterval(this.updatePlanet, 10000);
+	}
+
+	componentWillUnmount() {
 		clearInterval(this.interval);
 	}
 
@@ -33,12 +36,22 @@ class RandomPlanet extends Component {
 			.then(this.onPlanetLoaded)
 			.catch(this.onError);
 	};
-	
+
+	updateImage = img => {
+		this.setState(prevState => ({
+			planet: {
+				...prevState.planet,
+				img: img
+			}
+		}));
+	};
+
 	onPlanetLoaded = planet => {
 		this.setState({
 			planet,
 			loading: false
 		});
+		this.swapiService.doesImageExist(planet.id).then(this.updateImage);
 	};
 
 	render() {
@@ -59,11 +72,11 @@ class RandomPlanet extends Component {
 }
 
 const PlanetView = ({ planet }) => {
-	const { id, name, population, rotationPeriod, diameter } = planet;
+	const { id, name, population, rotationPeriod, diameter, img } = planet;
 	return (
 		<React.Fragment>
 			<img
-				src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+				src={img}
 				alt=""
 				className="planet-image mt-2 rounded-sm"
 			/>
