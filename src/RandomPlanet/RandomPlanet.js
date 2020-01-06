@@ -51,7 +51,7 @@ class RandomPlanet extends Component {
 			planet,
 			loading: false
 		});
-		this.swapiService.doesImageExist(planet.id).then(this.updateImage);
+		this.swapiService.getPlanetImg(planet.id).then(this.updateImage);
 	};
 
 	render() {
@@ -72,7 +72,7 @@ class RandomPlanet extends Component {
 }
 
 const PlanetView = ({ planet }) => {
-	const { id, name, population, rotationPeriod, diameter, img } = planet;
+	const { name, population, rotationPeriod, diameter, img } = planet;
 	return (
 		<React.Fragment>
 			<img

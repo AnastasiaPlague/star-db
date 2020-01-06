@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PersonDetails from "../PersonDetails/PersonDetails";
+import PersonDetails from "../ItemDetails/ItemDetails";
 import ItemList from "../ItemList/ItemList";
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import SwapiService from "../services/SwapiService";

@@ -1,5 +1,6 @@
 export default class SwapiService {
 	_apiBase = "https://swapi.co/api";
+	_imgUrlBase = "https://starwars-visualguide.com/assets/img";
 
 	async getResource(url) {
 		const res = await fetch(`${this._apiBase}${url}`);
@@ -38,13 +39,21 @@ export default class SwapiService {
 		const starship = await this.getResource(`/starships/${id}/`);
 		return this._transformStarship(starship);
 	};
-	doesImageExist = async id => {
-		const data = await fetch(`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`);
+
+	getPersonImg = id => {
+		return `${this._imgUrlBase}/characters/${id}.jpg`;
+	};
+
+	getPlanetImg = async id => {
+		const data = await fetch(`${this._imgUrlBase}/planets/${id}.jpg`);
 		if (!data.ok) {
 			return "https://www.pnglot.com/pngfile/detail/12-120147_venus-planet-pics-about-space-transparent-image-clipart.png";
 		}
 		const imgURL = data.url;
 		return imgURL;
+	};
+	getStarshipImg = id => {
+		return `${this._imgUrlBase}/starships/${id}.jpg`;
 	};
 
 	_extractId = item => {
