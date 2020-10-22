@@ -10,7 +10,7 @@ class RandomPlanet extends Component {
 	state = {
 		planet: {},
 		loading: true,
-		error: false
+		error: false,
 	};
 
 	componentDidMount() {
@@ -25,7 +25,7 @@ class RandomPlanet extends Component {
 	onError = err => {
 		this.setState({
 			error: true,
-			loading: false
+			loading: false,
 		});
 	};
 
@@ -41,17 +41,17 @@ class RandomPlanet extends Component {
 		this.setState(prevState => ({
 			planet: {
 				...prevState.planet,
-				img: img
-			}
+				img: img,
+			},
 		}));
 	};
 
 	onPlanetLoaded = planet => {
 		this.setState({
 			planet,
-			loading: false
+			loading: false,
 		});
-		this.swapiService.getPlanetImg(planet.id).then(this.updateImage);
+		this.swapiService.getRandomPlanetImg(planet.id).then(this.updateImage);
 	};
 
 	render() {
@@ -62,7 +62,7 @@ class RandomPlanet extends Component {
 		const spinner = loading ? <Spinner /> : null;
 		const content = hasData ? <PlanetView planet={planet} /> : null;
 		return (
-			<div className="random-planet jumbotron rounded mb-3 d-flex">
+			<div className="random-planet container jumbotron rounded mb-3 d-flex">
 				{errorMessage}
 				{spinner}
 				{content}
@@ -75,11 +75,7 @@ const PlanetView = ({ planet }) => {
 	const { name, population, rotationPeriod, diameter, img } = planet;
 	return (
 		<React.Fragment>
-			<img
-				src={img}
-				alt=""
-				className="planet-image mt-2 rounded-sm"
-			/>
+			<img src={img} alt="" className="planet-image mt-2 rounded-sm" />
 			<div className="card-body ">
 				<h4>{name}</h4>
 				<ul className="list-group list-group-flush">

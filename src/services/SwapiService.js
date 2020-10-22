@@ -1,11 +1,11 @@
 export default class SwapiService {
-	_apiBase = "https://swapi.co/api";
+	_apiBase = "https://swapi.dev/api";
 	_imgUrlBase = "https://starwars-visualguide.com/assets/img";
 
 	async getResource(url) {
 		const res = await fetch(`${this._apiBase}${url}`);
 		if (!res.ok) {
-			throw new Error(`Could not fetch ${url}, received ${res.status}`);
+			console.error(`Could not fetch ${url}, received ${res.status}`);
 		}
 		const body = await res.json();
 		return body;
@@ -13,17 +13,17 @@ export default class SwapiService {
 
 	getAllPeople = async () => {
 		const res = await this.getResource(`/people/`);
-		return res.results.map(this._transformPerson).slice(0, 5); //returns data in array
+		return res.results.map(this._transformPerson).slice(0, 9); //returns data in array
 	};
 
 	getAllPlanets = async () => {
 		const res = await this.getResource(`/planets/`);
-		return res.results.map(this._transformPlanet).slice(0, 5);
+		return res.results.map(this._transformPlanet).slice(1, 6);
 	};
 
 	getAllStarships = async () => {
 		const res = await this.getResource(`/starships/`);
-		return res.results.map(this._transformStarship).slice(0, 5);
+		return res.results.map(this._transformStarship).slice(2, 7);
 	};
 
 	getPerson = async id => {
@@ -44,20 +44,25 @@ export default class SwapiService {
 		return `${this._imgUrlBase}/characters/${id}.jpg`;
 	};
 
-	getPlanetImg = async id => {
+	getRandomPlanetImg = async id => {
 		const data = await fetch(`${this._imgUrlBase}/planets/${id}.jpg`);
 		if (!data.ok) {
-			return "https://www.pnglot.com/pngfile/detail/12-120147_venus-planet-pics-about-space-transparent-image-clipart.png";
+			return `${this._imgUrlBase}/placeholder.jpg`;
 		}
 		const imgURL = data.url;
 		return imgURL;
 	};
+
+	getPlanetImg = id => {
+		return `${this._imgUrlBase}/planets/${id}.jpg`;
+	};
+
 	getStarshipImg = id => {
 		return `${this._imgUrlBase}/starships/${id}.jpg`;
 	};
 
 	_extractId = item => {
-		const idRegex = /\/([0-9])*\/$/;
+		const idRegex = /\/(\d+)*\/$/;
 		return item.url.match(idRegex)[1]; // [] mark a group in a regex which we put in () before
 	};
 	_transformPlanet = planet => {
@@ -66,7 +71,7 @@ export default class SwapiService {
 			name: planet.name,
 			population: planet.population,
 			rotationPeriod: planet.rotation_period,
-			diameter: planet.diameter
+			diameter: planet.diameter,
 		};
 	};
 	_transformStarship = starship => {
@@ -75,7 +80,7 @@ export default class SwapiService {
 			name: starship.name,
 			model: starship.model,
 			starshipClass: starship.starship_class,
-			starshipLength: starship.length
+			starshipLength: starship.length,
 		};
 	};
 
@@ -86,7 +91,7 @@ export default class SwapiService {
 			gender: person.gender,
 			birthYear: person.birth_year,
 			skinColor: person.skin_color,
-			eyeColor: person.eye_color
+			eyeColor: person.eye_color,
 		};
 	};
 }

@@ -8,6 +8,3 @@ a:hover {
 .item-list .list-group-item:hover {
 	background-color: #444;
 }
-.item-list {
-	margin-bottom: 10px;
-}

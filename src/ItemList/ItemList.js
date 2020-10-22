@@ -7,7 +7,11 @@ const ItemList = props => {
 		const { id } = item;
 		const label = renderLabel(item);
 		return (
-			<li className="list-group-item" key={id} onClick={() => props.onItemSelected(id)}>
+			<li
+				className="list-group-item"
+				key={id}
+				onClick={() => props.onItemSelected(id)}
+			>
 				{label}
 			</li>
 		);
